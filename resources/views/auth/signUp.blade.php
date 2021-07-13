@@ -14,16 +14,7 @@
         <h4 class="mb-3">Sign Up Form</h4>
 
 
-        @if($errors->any())
-        <div class="alert alert-danger">
-            
-        <ul >
-        @foreach($errors->all() as $errors)
-            <li>{{$errors}}</li>
-            @endforeach
-       </ul>
-       </div>
-       @endif
+        <x-validError/>
       
 
         <form class="needs-validation" method="post" action="{{route('register')}}">
@@ -34,7 +25,7 @@
           <div class="row g-3">
             <div class="col-12">
               <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control "  id="firstName" name="firstName" value="{{old('firstName')}}" >
+              <input type="text" class="form-control @error('firstName') is-invalid @enderror"  id="firstName" name="firstName" value="{{old('firstName')}}" >
               <div class="invalid-feedback">
 
               
@@ -44,7 +35,7 @@
 
             <div class="col-12">
               <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" name="lastName"value="{{old('lastName')}}">
+              <input type="text" class="form-control  @error('lastName') is-invalid @enderror" id="lastName" name="lastName"value="{{old('lastName')}}">
               <div class="invalid-feedback">
                 Valid last name is required.
               </div>
@@ -54,7 +45,7 @@
 
             <div class="col-12">
               <label for="email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="email" name="email"  placeholder="you@example.com"value="{{old('email')}}">
+              <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"  placeholder="you@example.com"value="{{old('email')}}">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -62,7 +53,7 @@
              
             <div class="col-12">
               <label for="lastName" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password">
+              <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
               <div class="invalid-feedback">
                 Valid password is required.
               </div>
