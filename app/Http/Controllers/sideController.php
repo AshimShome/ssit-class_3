@@ -24,7 +24,7 @@ class sideController extends Controller
             'firstName' =>'required',
             'lastName' =>'required',
             'email' =>'required',
-            'password' =>'required',
+            'password' =>'required|min:6|max:20',
         ]);
 
           User::create([
