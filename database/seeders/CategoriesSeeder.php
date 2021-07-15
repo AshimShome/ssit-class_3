@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\Categories;
+use Faker\Factory;
 
 use Illuminate\Database\Seeder;
 
@@ -13,6 +15,27 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+
+        //foreach (range(1,10) as $index){
+        for ($i = 1; $i <= 4; $i++) {
+            $faker = Factory::create();
+
+            Categories::create([
+                'user_id'=>rand(1,5),
+                'name' => substr($faker->paragraph, 0, 10),
+                'slug' => substr($faker->paragraph, 0, 10),
+                'status' =>$this-> random_status(),
+
+
+            ]);
+        }
+    }
+        public function random_status(){
+            $status=['active'=>'active','inactive'=>'inactive'];
+           // $status=['active','inactive'];
+            return array_rand($status,1);
+
+
     }
 }

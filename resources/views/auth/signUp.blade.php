@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot name="title">Sign-Up</x-slot>
 
- 
+
 
   <div class="row g-5">
     <div class="col-md-8">
@@ -15,10 +15,11 @@
 
 
         <x-validError/>
-      
+           <x-success/>
+
 
         <form class="needs-validation" method="post" action="{{route('register')}}">
-        
+
         @csrf
 
 
@@ -28,7 +29,7 @@
               <input type="text" class="form-control @error('firstName') is-invalid @enderror"  id="firstName" name="firstName" value="{{old('firstName')}}" >
               <div class="invalid-feedback">
 
-              
+
                 Valid first name is required.
               </div>
             </div>
@@ -41,7 +42,7 @@
               </div>
             </div>
 
-           
+
 
             <div class="col-12">
               <label for="email" class="form-label">Email Address</label>
@@ -50,7 +51,7 @@
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
-             
+
             <div class="col-12">
               <label for="lastName" class="form-label">Password</label>
               <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
@@ -58,7 +59,7 @@
                 Valid password is required.
               </div>
             </div>
-           
+
           </div>
 
           <hr class="my-4">
@@ -70,16 +71,16 @@
       </div>
 
 
-    
-       </div> 
+
+       </div>
     </div>
-      
+
 
     </div>
 
     <div class="col-md-4">
       <div class="position-sticky" style="top: 2rem;">
-        
+
 
         <x-about />
 
@@ -87,7 +88,7 @@
 
         <x-elsewhere />
 
-        
+
       </div>
     </div>
   </div>
