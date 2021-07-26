@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :categories="$categories">
     <x-slot name="title">Home</x-slot>
 
   <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
@@ -23,7 +23,7 @@
 
 
 
-      
+
       <article class="blog-post">
         <h2 class="blog-post-title">Sample blog post</h2>
         <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
@@ -31,7 +31,7 @@
         <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
        </article>
 
-      
+
 
       <nav class="blog-pagination" aria-label="Pagination">
         <a class="btn btn-outline-primary" href="#">Older</a>
@@ -42,7 +42,7 @@
 
     <div class="col-md-4">
       <div class="position-sticky" style="top: 2rem;">
-        
+
 
         <x-about />
 
@@ -50,7 +50,7 @@
 
         <x-elsewhere />
 
-        
+
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categories;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,9 @@ use mysql_xdevapi\Exception;
 class sideController extends Controller
 {
     public function index(){
-        return view('frontend.home');
+        $categories= categories::select('id','name','slug')->orderBy('id','DESC')->get();
+
+        return view('frontend.home',compact('categories'));
     }
 
     public function signUp(){

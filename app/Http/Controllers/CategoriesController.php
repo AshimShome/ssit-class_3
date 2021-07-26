@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\categories;
+use Faker\Extension\Helper;
 use Illuminate\Http\Request;
+//use App\Http\Helpers\Helpers;
+
 
 class CategoriesController extends Controller
 {
@@ -14,7 +17,15 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+       // return Helpers::something();
+        //return test();
+        $categories= categories::select('id','name','slug')->orderBy('id','DESC')->get();
+        return view('backend.categories.manage',compact('categories'));
+
+       //return categories::all();
+        //return  categories::find(4);
+        //return  categories::findorFail(14);
+
     }
 
     /**

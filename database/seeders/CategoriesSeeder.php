@@ -18,13 +18,13 @@ class CategoriesSeeder extends Seeder
 
 
         //foreach (range(1,10) as $index){
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 8; $i++) {
             $faker = Factory::create();
-
+            $name=substr($faker->paragraph, 0, 10);
             Categories::create([
                 'user_id'=>rand(1,5),
-                'name' => substr($faker->paragraph, 0, 10),
-                'slug' => substr($faker->paragraph, 0, 10),
+                'name' => $name,
+                'slug' =>slugify($name),
                 'status' =>$this-> random_status(),
 
 
@@ -38,4 +38,7 @@ class CategoriesSeeder extends Seeder
 
 
     }
+
+
+
 }
