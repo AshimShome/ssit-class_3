@@ -25,7 +25,7 @@ Route::get('/sign-up',[sideController::class,'signUp'])->name('signUp');
 
 Route::post('/sign-up',[sideController::class,'register'])->name('register');
 
-Route::prefix('admin')->name('admin')->group(function (){
+Route::prefix('admin')->name('admin.')->group(function (){
     Route::resource('category',CategoriesController::class);
 });
 

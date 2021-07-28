@@ -11,25 +11,28 @@ use mysql_xdevapi\Exception;
 class sideController extends Controller
 {
     public function index(){
-        $categories= categories::select('id','name','slug')->orderBy('id','DESC')->get();
+        $category= categories::select('id','name','slug')->orderBy('id','DESC')->get();
 
-        return view('frontend.home',compact('categories'));
+        return view('frontend.home',compact('category'));
     }
 
     public function signUp(){
-        return view('auth.signUp');
+        $category= categories::select('id','name','slug')->orderBy('id','DESC')->get();
+
+        return view('auth.signUp',compact('category'));
     }
 
     public function register(Request $request){
 
-        try {
 
-            $request->validate([
-                'firstName' =>'required',
-                'lastName' =>'required',
-                'email' =>'required',
-                'password' =>'required|min:6|max:20',
-            ]);
+        $request->validate([
+            'firstName' =>'required',
+            'lastName' =>'required',
+            'email' =>'required',
+            'password' =>'required|min:6|max:20',
+        ]);
+
+        try {
 
             User::create([
 

@@ -1,4 +1,4 @@
-<x-layout :categories="$categories">
+<x-layout :category="$category">
     <x-slot name="title">Home</x-slot>
 
   <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">

@@ -1,7 +1,5 @@
-<x-layout>
+<x-layout :category="$category">
     <x-slot name="title">Sign-Up</x-slot>
-
-
 
   <div class="row g-5">
     <div class="col-md-8">
@@ -9,21 +7,15 @@
     <div class="bg-light py-5 rounded mb-3">
        <div class="row justify-content-center">
 
-
        <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Sign Up Form</h4>
 
-
         <x-validError/>
            <x-success/>
-
-
-        <form class="needs-validation" method="post" action="{{route('register')}}">
+           <form class="needs-validation" method="post" action="{{route('register')}}">
 
         @csrf
-
-
-          <div class="row g-3">
+ <div class="row g-3">
             <div class="col-12">
               <label for="firstName" class="form-label">First name</label>
               <input type="text" class="form-control @error('firstName') is-invalid @enderror"  id="firstName" name="firstName" value="{{old('firstName')}}" >

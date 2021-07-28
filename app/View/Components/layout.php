@@ -6,15 +6,18 @@ use Illuminate\View\Component;
 
 class layout extends Component
 {
+    public $category;
+
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $categories;
-    public function __construct($categories)
+
+    public function __construct($category)
     {
-    $this->categories=$categories;
+    $this->category=$category;
     }
 
     /**
