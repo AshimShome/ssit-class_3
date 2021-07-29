@@ -28,7 +28,7 @@ class userSeeder extends Seeder
         ]);
 
         //foreach (range(1,10) as $index){
-        for($i=1;$i<=4;$i++){
+        for($i=1;$i<=5;$i++){
             $faker = Factory::create();
 
             User::create([

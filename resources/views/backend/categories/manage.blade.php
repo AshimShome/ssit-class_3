@@ -5,6 +5,8 @@
 </head>
 <body>
 <x-success/>
+<x-error/>
+<x-validError/>
 <div>
     <a href="{{route('admin.category.create')}}">Add categories</a>
 </div>
@@ -13,6 +15,7 @@
     <tr>
         <th>Sl_No</th>
         <th>Name</th>
+        <th>Status</th>
         <th>Action</th>
     </tr>
     @foreach($category as $category)
@@ -20,14 +23,16 @@
 
              <td>{{++$loop->index}}</td>
             <td>{{$category->name}}</td>
+            <td>{{ucfirst($category->status)}}</td>
 
             <td>
-                <a href="#">Edit</a>
+                <a href="{{route('admin.category.edit',$category->id)}}">Edit</a>
                 <a href="{{route('admin.category.show',$category->id)}}">Show</a>
                 <form action="{{route('admin.category.destroy',$category->id)}}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">Delete</button>
+
+                    <a href="{{route('admin.category.destroy',$category->id)}}"onclick="event.preventDefault();this.closest('form').submit()">Delete</a>
                 </form>
 
             </td>

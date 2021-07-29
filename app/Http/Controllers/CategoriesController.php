@@ -22,7 +22,7 @@ class CategoriesController extends Controller
     {
        // return Helpers::something();
         //return test();
-        $category= categories::select('id','name','slug')->orderBy('id','DESC')->get();
+        $category= categories::select('id','name','slug','status')->orderBy('id','DESC')->get();
         return view('backend.categories.manage',compact( 'category'));
 
        //return categories::all();
@@ -51,24 +51,24 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' =>'required|min:3|max:20',
+            'name' =>'required|min:3|max:20|unique:categories',
             'status' =>'required',
 
         ]);
         try {
 
             categories::create([
-                'user_id' =>1,
+                'user_id' =>auth()->user()->id,
                 'name' =>$request->name,
                 'slug' =>slugify($request->name),
                 'status' =>$request->status,
 
             ]);
 
-            session()->flash('success','User data insert success');
+            session()->flash('success','category data insert success');
 
         }catch (Exception $exception){
-            dd($exception);
+            session()->flash('error','category data insert not success');
         }
         return redirect()->back();
     }
@@ -91,9 +91,9 @@ class CategoriesController extends Controller
      * @param  \App\Models\categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function edit(categories $categories)
+    public function edit(categories $category)
     {
-        //
+        return view('backend.categories.edit',compact('category'));
     }
 
     /**
@@ -103,9 +103,30 @@ class CategoriesController extends Controller
      * @param  \App\Models\categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, categories $categories)
+    public function update(Request $request, categories $category)
     {
-        //
+        $request->validate([
+            'name' =>'required|min:3|max:20|',
+            'status' =>'required',
+
+        ]);
+        try {
+
+
+                $category->user_id= auth()->user()->id;
+                $category->name=$request->name;
+                $category->slug=slugify($request->name);
+                $category->status=$request->status;
+            $category->update();
+
+
+
+            session()->flash('success','category data update success');
+
+        }catch (Exception $exception){
+            session()->flash('error','category data not update success');
+        }
+        return redirect()->back();
     }
 
     /**

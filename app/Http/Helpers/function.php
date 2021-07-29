@@ -26,4 +26,11 @@ function slugify($text, string $divider = '-')
     return $text;
 }
 
+function random_status(){
+    $status=['active'=>'active','inactive'=>'inactive'];
+    // $status=['active','inactive'];
+    return array_rand($status,1);
+
+
+}
 

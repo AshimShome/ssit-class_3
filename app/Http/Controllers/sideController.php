@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\categories;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,6 +21,33 @@ class sideController extends Controller
 
         return view('auth.signUp',compact('category'));
     }
+
+    public function login_form(){
+    $category= categories::select('id','name','slug')->orderBy('id','DESC')->get();
+
+    return view('auth.sign_in',compact('category'));
+}
+
+    public function login(Request $request)
+    {
+
+
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        $creatensial= $request->only('email','password');
+        if(Auth()->attempt( $creatensial)){
+
+            return redirect('/admin');
+        }else{
+            dd('Wrong');
+        }
+
+      return redirect()->back();
+    }
+
+
 
     public function register(Request $request){
 
@@ -51,5 +78,9 @@ class sideController extends Controller
         return redirect()->back();
 
 
+    }
+    public  function logout(){
+    auth()->logout();
+    return redirect()->route('login');
     }
 }

@@ -25,19 +25,19 @@ class CategoriesSeeder extends Seeder
                 'user_id'=>rand(1,5),
                 'name' => $name,
                 'slug' =>slugify($name),
-                'status' =>$this-> random_status(),
+                'status' => random_status(),
 
 
             ]);
         }
     }
-        public function random_status(){
-            $status=['active'=>'active','inactive'=>'inactive'];
+        //public function random_status(){
+            //$status=['active'=>'active','inactive'=>'inactive'];
            // $status=['active','inactive'];
-            return array_rand($status,1);
+            //return array_rand($status,1);
 
 
-    }
+    //}
 
 
 
