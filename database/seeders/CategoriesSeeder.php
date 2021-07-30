@@ -22,7 +22,7 @@ class CategoriesSeeder extends Seeder
             $faker = Factory::create();
             $name=substr($faker->paragraph, 0, 10);
             Categories::create([
-                'user_id'=>rand(1,5),
+                'user_id'=>rand(1,6),
                 'name' => $name,
                 'slug' =>slugify($name),
                 'status' => random_status(),

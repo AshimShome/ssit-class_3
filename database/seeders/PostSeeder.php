@@ -15,12 +15,14 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        foreach (range(1,30) as $index){
-        //for($i=1;$i<=5;$i++) {
+        //foreach (range(1,30) as $index){
+
+        for($i=1;$i<=30;$i++) {
             $faker = Factory::create();
 
-            post::created(['user_id' => rand(1, 6),
-                'category_id' => rand(1, 8),
+            post::create([
+                'user_id' => rand(1, 6),
+                'category_id' => rand(1,8),
                 'title' =>$faker->text,
                 'description' =>$faker->paragraph(2,true),
                 'image' =>$faker->imageUrl(),
