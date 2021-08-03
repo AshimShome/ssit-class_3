@@ -106,7 +106,7 @@ class CategoriesController extends Controller
     public function update(Request $request, categories $category)
     {
         $request->validate([
-            'name' =>'required|min:3|max:20|',
+            'name' =>'required|min:3|max:20|unique:categories,name,'.$category->id,
             'status' =>'required',
 
         ]);

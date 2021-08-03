@@ -19,11 +19,12 @@ class PostSeeder extends Seeder
 
         for($i=1;$i<=30;$i++) {
             $faker = Factory::create();
-
+             $title=$faker->text;
             post::create([
                 'user_id' => rand(1, 6),
                 'category_id' => rand(1,8),
-                'title' =>$faker->text,
+                'title' =>$title,
+                'slug'=>slugify($title),
                 'description' =>$faker->paragraph(2,true),
                 'image' =>$faker->imageUrl(),
                 'status' => random_status(),

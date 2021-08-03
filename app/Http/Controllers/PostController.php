@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\categories;
 use App\Models\post;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class PostController extends Controller
 {
@@ -18,7 +19,7 @@ class PostController extends Controller
 
         $posts=post::orderBy('id','DESC')->get();
         //return view('backend.categories.manage',compact( 'category'));
-        return $posts;
+        return view('backend.post.manage',compact('posts'));
         //dd($post);
     }
 
@@ -29,7 +30,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.post.create');
+
     }
 
     /**
@@ -40,15 +42,47 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+         $request->validate([
+             
+            'title' =>'required|min:10|max:20|unique:posts',
+            'description' =>'required|min:10',
+            'image' =>'required|image ',
+            'status' =>'required',
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\post  $post
-     * @return \Illuminate\Http\Response
-     */
+        ]);
+
+        try {
+
+            $image=$request->file('image');
+            $imageName=date('ymdhis').rand(1111,9999).'.'.$image->getClientOriginalExtension();
+            $image->storeAs('posts',$imageName);
+
+
+            post::create([
+                 'title' =>$request->title,
+                'description' =>$request->description,
+                'slug' =>slugify( $request->title),
+                 'status' =>$request->status,
+                'user_id' =>auth()->user()->id,
+
+
+            ]);
+
+             session()->flash('success','Post data insert success');
+
+         }catch (Exception $exception){
+             session()->flash('error','Post data insert not success');
+         }
+         return redirect()->back();
+
+     }
+
+     /**
+      * Display the specified resource.
+      *
+      * @param  \App\Models\post  $post
+      * @return \Illuminate\Http\Response
+      */
     public function show(post $post)
     {
         //

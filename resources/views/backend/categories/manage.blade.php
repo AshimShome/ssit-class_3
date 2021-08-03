@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Page Title</title>
-</head>
-<body>
+@extends('backend.app')
+@section('title','Manage Category')
+
+
+@section('main-container')
 <x-success/>
 <x-error/>
 <x-validError/>
-<div>
-    <a href="{{route('admin.category.create')}}">Add categories</a>
+<div class="d-flex justify-content-between py-2">
+    <h3>Manage categories</h3>
+    <a href="{{route('admin.category.create')}}"class="btn btn-info">Add categories</a>
+
 </div>
 
-<table border="" style="width: 60%; margin: auto;">
+<table class="table table-bordered">
     <tr>
         <th>Sl_No</th>
         <th>Name</th>
@@ -41,5 +42,4 @@
     @endforeach
 </table>
 
-</body>
-</html>
+@endsection

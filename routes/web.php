@@ -5,6 +5,7 @@ use App\Http\Controllers\sideController;
 use App\Http\Controllers\postController;
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\adminController;
 
 
 /*
@@ -33,13 +34,17 @@ Route::post('/login',[sideController::class,'login'])->name('login');
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (){
 
-    Route::get('/',function (){
-        return auth()->user()->email;
-    });
+    Route::get('/',[adminController::class,'index'])->name('index');
     Route::post('/logout',[sideController::class,'logout'])->name('logout');
 
-    Route::resource('category',CategoriesController::class);
-    Route::resource('posts',PostController::class);
+   // Route::resource('category',CategoriesController::class);
+    //Route::resource('posts',PostController::class);
+    Route::resources([
+        'category'=>CategoriesController::class,
+        'posts'=>PostController::class,
+
+
+   ] );
 
 });
 
