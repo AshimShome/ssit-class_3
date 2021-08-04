@@ -30,7 +30,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.post.create');
+        $category= categories::select('id','name')->get();
+
+        return view('backend.post.create',compact('category'));
 
     }
 
@@ -43,10 +45,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
          $request->validate([
-             
-            'title' =>'required|min:10|max:20|unique:posts',
+             'category' =>'required',
+             'title' =>'required|min:10|unique:posts',
             'description' =>'required|min:10',
-            'image' =>'required|image ',
+            'image' =>'required|image',
             'status' =>'required',
 
         ]);
@@ -55,18 +57,24 @@ class PostController extends Controller
 
             $image=$request->file('image');
             $imageName=date('ymdhis').rand(1111,9999).'.'.$image->getClientOriginalExtension();
-            $image->storeAs('posts',$imageName);
 
 
-            post::create([
+            $post=post::create([
+                'user_id' =>auth()->user()->id,
+                'category_id'=>$request->category,
                  'title' =>$request->title,
                 'description' =>$request->description,
+                'image' =>$imageName,
+                'status' =>$request->status,
+
                 'slug' =>slugify( $request->title),
-                 'status' =>$request->status,
-                'user_id' =>auth()->user()->id,
 
 
             ]);
+            if($post){
+                $image->storeAs('posts',$imageName);
+
+            }
 
              session()->flash('success','Post data insert success');
 
@@ -96,7 +104,9 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
-        //
+        $category= categories::select('id','name')->get();
+
+        return view('backend.post.edit',compact('category','post'));
     }
 
     /**
@@ -108,7 +118,49 @@ class PostController extends Controller
      */
     public function update(Request $request, post $post)
     {
-        //
+
+        $request->validate([
+            'category' =>'required',
+            'title' =>'required|min:10|unique:posts,title,'.$post->id,
+            'description' =>'required|min:10',
+            'status' =>'required',
+
+        ]);
+
+        try {
+
+            $post->user_id =auth()->user()->id;
+              $post->category_id=$request->category;
+               $post->title=$request->title;
+             $post->description =$request->description;
+               $post->status=$request->status;
+
+               $post->slug=slugify( $request->title);
+            if($request->file('image')){
+                if(file_exists( public_path("/uploads/posts/".$post->image))) {
+
+                    unlink(public_path("/uploads/posts/".$post->image));
+
+                }
+                $image=$request->file('image');
+                $imageName=date('ymdhis').rand(1111,9999).'.'.$image->getClientOriginalExtension();
+                $post->image=$imageName;
+                if($post){
+                    $image->storeAs('posts',$imageName);
+
+                }
+
+            }
+
+   @$post->update();
+
+
+            session()->flash('success','Post data update success');
+
+        }catch (Exception $exception){
+            session()->flash('error','Post data update not success');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -119,6 +171,16 @@ class PostController extends Controller
      */
     public function destroy(post $post)
     {
-        //
+        if(file_exists( public_path("/uploads/posts/".$post->image))) {
+            if($post->image !=='demo.png'){
+          unlink(public_path("/uploads/posts/".$post->image));
+            }
+        }
+        $post->delete();
+
+
+  session()->flash('success','Post delete success');
+
+        return redirect()->back();
     }
 }

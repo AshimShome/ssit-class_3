@@ -27,7 +27,7 @@
                 <td>{{++$loop->index}}</td>
                 <td>{{$post->title}}</td>
                 <td>{{$post->description}}</td>
-                <td><img class="w-75" src="{{$post->image}}"alt=""></td>
+                <td><img style="width: 100px" src="{{asset('uploads/posts/'.$post->image)}}"alt=""></td>
                 <td>{{ucfirst($post->status)}}</td>
 
                 <td>

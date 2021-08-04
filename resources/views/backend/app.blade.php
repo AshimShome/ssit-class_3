@@ -25,6 +25,13 @@
                 </li><li class="nav-item">
                     <a class="nav-link" href="{{route('admin.posts.index')}}">Post</a>
                 </li>
+                </li><li class="nav-item">
+                    <form action="{{route('admin.logout')}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <a class="nav-link"  href="{{route('admin.logout')}}"onclick="event.preventDefault();this.closest('form').submit()">Logout</a>
+                    </form>
+                </li>
 
             </ul>
 

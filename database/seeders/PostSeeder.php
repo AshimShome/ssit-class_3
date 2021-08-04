@@ -26,7 +26,7 @@ class PostSeeder extends Seeder
                 'title' =>$title,
                 'slug'=>slugify($title),
                 'description' =>$faker->paragraph(2,true),
-                'image' =>$faker->imageUrl(),
+                'image' =>'demo.png',
                 'status' => random_status(),
         ]);
         }
