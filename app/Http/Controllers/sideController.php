@@ -15,6 +15,9 @@ class sideController extends Controller
 
         return view('frontend.home',compact('category'));
     }
+    public function category_post($slug){
+   dd($slug);
+    }
 
     public function signUp(){
         $category= categories::select('id','name','slug')->orderBy('id','DESC')->get();

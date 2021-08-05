@@ -24,6 +24,7 @@ Route::get('/', function () {
 });
 */
 Route::get('/',[sideController::class,'index'])->name('home');
+Route::get('/category/{slug}',[sideController::class,'category_post'])->name('category.post');
 Route::get('/sign-up',[sideController::class,'signUp'])->name('signUp');
 Route::post('/sign-up',[sideController::class,'register'])->name('register');
 
