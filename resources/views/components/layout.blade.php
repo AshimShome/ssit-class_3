@@ -69,7 +69,7 @@
     <nav class="nav d-flex justify-content-between">
 
         @foreach($category as $category)
-            <a class="p-2 link-secondary" href="{{route('category.post',$category->slug)}}}">{{ $category->name}}</a>
+            <a class="p-2 link-secondary" href="{{route('category.post',$category->slug)}}">{{ $category->name}}</a>
         @endforeach
     </nav>
   </div>

@@ -16,6 +16,7 @@
         <tr>
             <th>Sl_No</th>
             <th>Title</th>
+            <th>Category</th>
             <th>Description</th>
             <th>Image</th>
             <th>Status</th>
@@ -26,6 +27,7 @@
 
                 <td>{{++$loop->index}}</td>
                 <td>{{$post->title}}</td>
+                <td>{{$post->category->name}}</td>
                 <td>{{$post->description}}</td>
                 <td><img style="width: 100px" src="{{asset('uploads/posts/'.$post->image)}}"alt=""></td>
                 <td>{{ucfirst($post->status)}}</td>

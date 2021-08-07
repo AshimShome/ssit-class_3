@@ -17,8 +17,8 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts=post::orderBy('id','DESC')->get();
-        //return view('backend.categories.manage',compact( 'category'));
+        $posts=post::with('category')->orderBy('id','DESC')->get();
+        //return $posts;
         return view('backend.post.manage',compact('posts'));
         //dd($post);
     }

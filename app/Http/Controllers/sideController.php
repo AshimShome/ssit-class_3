@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\categories;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,8 +17,14 @@ class sideController extends Controller
         return view('frontend.home',compact('category'));
     }
     public function category_post($slug){
-   dd($slug);
-    }
+   //dd($slug);
+   $categories=categories::where('slug', $slug)->pluck('id')->first();
+
+
+        $posts=categories::with('posts')->find($categories);
+      return $posts;
+  }
+
 
     public function signUp(){
         $category= categories::select('id','name','slug')->orderBy('id','DESC')->get();
